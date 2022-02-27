@@ -1,0 +1,4 @@
+{
+    "exec": "node src/main",
+    "ext": "js"
+}
