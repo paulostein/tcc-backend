@@ -3,6 +3,8 @@ require('dotenv').config();
 
 module.exports = {
     db: {
+        entityName: '',
+
         async getConnection() {
             if (!this.connection) {
                 this.connection = await typeorm.createConnection({
@@ -24,9 +26,24 @@ module.exports = {
             return this.connection;
         },
 
-        async getRepository(entityName) {
+        async getRepository() {
             const connection = await this.getConnection();
-            return connection.getRepository(entityName);
+            return connection.getRepository(this.entityName);
+        },
+
+        async findAll() {
+            const repository = await this.getRepository();
+            return repository.find();
+        },
+
+        async save(data) {
+            const repository = await this.getRepository();
+            return repository.save(data);
+        },
+
+        async findById(id) {
+            const repository = await this.getRepository();
+            return repository.findOne(id);
         },
     },
 };

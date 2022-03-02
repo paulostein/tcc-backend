@@ -2,6 +2,7 @@ const express = require('express');
 const { json, Router } = require('express');
 const { readdirSync } = require('fs');
 const { resolve } = require('path');
+const { errors } = require('celebrate');
 
 const initRouter = (app) => {
     const router = Router();
@@ -18,7 +19,7 @@ const initMiddlewares = (app) => {
 };
 
 const initRoutes = (router) => {
-    const pathToRequire = resolve(__dirname, '..', 'presentation');
+    const pathToRequire = resolve(__dirname, 'routes');
     const routesFiles = readdirSync(pathToRequire);
     routesFiles.map((routeFile) => require(`${pathToRequire}/${routeFile}`)(router));
 };
@@ -28,5 +29,7 @@ initMiddlewares(app);
 
 const router = initRouter(app);
 initRoutes(router);
+
+app.use(errors());
 
 app.listen(3001, () => console.log('running at 3001'));
