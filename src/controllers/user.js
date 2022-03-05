@@ -6,11 +6,20 @@ class UserController {
         return repository.findAll();
     }
 
-    async findById(id) {
-        return repository.findById(id);
+    async findByCriteria(criteria) {
+        return repository.findByCriteria(criteria);
     }
 
     async save(user) {
+        const userFound = await this.findByCriteria({ email: user.email });
+
+        if (userFound) {
+            return {
+                code: 400,
+                message: 'User already exists',
+            };
+        }
+
         const hash = await bcrypt.hash(user.password, 10);
         const encryptedUser = {
             ...user,

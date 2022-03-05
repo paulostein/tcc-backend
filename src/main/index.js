@@ -1,8 +1,11 @@
 const express = require('express');
-const { json, Router } = require('express');
+const { Router } = require('express');
 const { readdirSync } = require('fs');
 const { resolve } = require('path');
 const { errors } = require('celebrate');
+const bodyParser = require('./middlewares/body-parser');
+const contentType = require('./middlewares/content-type');
+const tokenVerifier = require('./middlewares/token-verifier');
 
 const initRouter = (app) => {
     const router = Router();
@@ -11,11 +14,9 @@ const initRouter = (app) => {
 };
 
 const initMiddlewares = (app) => {
-    app.use(json());
-    app.use((req, res, next) => {
-        res.type('json');
-        next();
-    });
+    app.use(bodyParser());
+    app.use(contentType);
+    app.use(tokenVerifier);
 };
 
 const initRoutes = (router) => {

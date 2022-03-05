@@ -5,8 +5,8 @@ class AreaController {
         return repository.findAll;
     }
 
-    async findById(id) {
-        return repository.findById(id);
+    async findByCriteria(criteria) {
+        return repository.findByCriteria(criteria);
     }
 
     async save(area) {

@@ -7,9 +7,9 @@ class AreaRepository {
         return areas;
     }
 
-    async findById(id) {
+    async findByCriteria(criteria) {
         this.setEntityName();
-        const area = await db.findById(id);
+        const area = await db.findByCriteria(criteria);
         return area;
     }
 

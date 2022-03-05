@@ -7,9 +7,9 @@ class UserRepository {
         return users;
     }
 
-    async findById(id) {
+    async findByCriteria(criteria) {
         this.setEntityName();
-        const user = await db.findById(id);
+        const user = await db.findByCriteria(criteria);
         return user;
     }
 

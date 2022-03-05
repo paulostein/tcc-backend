@@ -12,7 +12,7 @@ module.exports = (router) => {
     });
 
     router.get('/area/:id', async (req, res) => {
-        const area = await controller.findById(req.params.id);
+        const area = await controller.findByCriteria({ id: req.params.id });
         res.send(area);
     });
 };

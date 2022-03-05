@@ -13,7 +13,7 @@ module.exports = (router) => {
     });
 
     router.get('/user/:id', async (req, res) => {
-        const user = await controller.findById(req.params.id);
+        const user = await controller.findByCriteria({ id: req.params.id });
         res.send(user);
     });
 };
