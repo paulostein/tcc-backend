@@ -41,9 +41,14 @@ module.exports = {
             return repository.save(data);
         },
 
-        async findByCriteria(id) {
+        async findByCriteria(criteria) {
             const repository = await this.getRepository();
-            return repository.findOne(id);
+            return repository.findOne(criteria);
         },
+
+        async deleteById(id) {
+            const repository = await this.getRepository();
+            await repository.delete(id);
+        }
     },
 };

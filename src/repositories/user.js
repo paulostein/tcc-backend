@@ -18,6 +18,11 @@ class UserRepository {
         return db.save(user);
     }
 
+    async deleteById(id) {
+        this.setEntityName();
+        await db.deleteById(id);
+    }
+
     setEntityName() {
         db.entityName = 'User';
     }

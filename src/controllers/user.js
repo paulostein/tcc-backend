@@ -1,6 +1,6 @@
 const repository = require('../repositories/user');
 const bcrypt = require('bcrypt');
-const { success, badRequest, created } = require('../helpers/http');
+const { success, badRequest, created, deleted } = require('../helpers/http');
 
 class UserController {
     async findAll() {
@@ -14,9 +14,9 @@ class UserController {
     }
 
     async save(user) {
-        const userFound = await this.findByCriteria({ email: user.email });
+        const userFound = await repository.findByCriteria({ email: user.email });
 
-        if (userFound.data) {
+        if (userFound) {
             return badRequest('User already exists');
         }
 
@@ -27,6 +27,16 @@ class UserController {
         };
         const createdUser = await repository.save(encryptedUser);
         return created('User created successfully', createdUser);
+    }
+
+    async deleteById(id) {
+        const userFound = await repository.findByCriteria(id);
+
+        if (!userFound) {
+            return badRequest('User not exists');
+        }
+        await repository.deleteById(id);
+        return deleted();
     }
 }
 
