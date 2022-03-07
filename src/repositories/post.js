@@ -18,6 +18,11 @@ class PostRepository {
         return db.save(post);
     }
 
+    async deleteById(id) {
+        this.setEntityName();
+        await db.deleteById(id);
+    }
+
     setEntityName() {
         db.entityName = 'Post';
     }
