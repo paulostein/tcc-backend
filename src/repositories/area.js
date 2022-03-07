@@ -18,6 +18,11 @@ class AreaRepository {
         return db.save(area);
     }
 
+    async deleteById(id) {
+        this.setEntityName();
+        await db.deleteById(id);
+    }
+
     setEntityName() {
         db.entityName = 'Area';
     }

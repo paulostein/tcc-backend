@@ -9,7 +9,7 @@ module.exports = class AreaValidator {
         });
     }
 
-    static getById() {
+    static id() {
         return celebrate({
             [Segments.PARAMS]: Joi.object().keys({
                 id: Joi.number(),

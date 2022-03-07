@@ -16,6 +16,16 @@ class AreaController {
         const createdArea = await repository.save(area);
         return created('Area created successfully', createdArea);
     }
+
+    async deleteById(id) {
+        const areaFound = await repository.findByCriteria(id);
+
+        if (!areaFound) {
+            return badRequest('Area not exists');
+        }
+        await repository.deleteById(id);
+        return deleted();
+    }
 }
 
 module.exports = new AreaController();
