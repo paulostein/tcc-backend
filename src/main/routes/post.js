@@ -1,9 +1,8 @@
-const { db } = require('../../infra');
+const controller = require('../../controllers/post');
 
 module.exports = (router) => {
     router.get('/post', async (req, res) => {
-        const posts = await db.findAll('Post');
-
-        res.send(posts);
+        const { code, ...data } = await controller.findAll();
+        res.status(code).send(data);
     });
 };

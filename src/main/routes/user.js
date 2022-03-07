@@ -3,17 +3,17 @@ const Validators = require('../validators/user');
 
 module.exports = (router) => {
     router.get('/user', async (req, res) => {
-        const users = await controller.findAll();
-        res.send(users);
+        const { code, ...data } = await controller.findAll();
+        res.status(code).send(data);
     });
 
     router.post('/user', Validators.post(), async (req, res) => {
-        const user = await controller.save(req.body);
-        res.send(user);
+        const { code, ...data } = await controller.save(req.body);
+        res.status(code).send(data);
     });
 
-    router.get('/user/:id', async (req, res) => {
-        const user = await controller.findByCriteria({ id: req.params.id });
-        res.send(user);
+    router.get('/user/:id', Validators.getById(), async (req, res) => {
+        const { code, ...data } = await controller.findByCriteria({ id: req.params.id });
+        res.status(code).send(data);
     });
 };

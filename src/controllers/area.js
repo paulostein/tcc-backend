@@ -1,16 +1,20 @@
 const repository = require('../repositories/area');
+const { success, created } = require('../helpers/http');
 
 class AreaController {
     async findAll() {
-        return repository.findAll;
+        const areas = await repository.findAll();
+        return success('Found areas', areas);
     }
 
     async findByCriteria(criteria) {
-        return repository.findByCriteria(criteria);
+        const area = await repository.findByCriteria(criteria);
+        return success('Found area', area);
     }
 
     async save(area) {
-        return repository.save(area);
+        const createdArea = await repository.save(area);
+        return created('Area created successfully', createdArea);
     }
 }
 

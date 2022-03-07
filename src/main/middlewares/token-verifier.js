@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { unauthorized, serverError } = require('../../helpers/http');
+require('dotenv').config();
 
-const validateToken = (token) => jwt.verify(token, 'cukinha');
+const validateToken = (token) => jwt.verify(token, process.env.JWT_SECRET_KEY);
 
 const validateHeaders = (headers) => {
     const { authorization } = headers;

@@ -23,6 +23,10 @@ const unauthorized = () => ({
     code: 401,
     message: 'Unauthorized',
 });
+const notFound = (message) => ({
+    code: 404,
+    message,
+});
 
 module.exports = {
     badRequest,
@@ -31,4 +35,5 @@ module.exports = {
     deleted,
     serverError,
     unauthorized,
+    notFound,
 };

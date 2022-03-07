@@ -1,5 +1,5 @@
 const { db } = require('../infra');
-db.entityName = 'Area';
+
 class AreaRepository {
     async findAll() {
         this.setEntityName();

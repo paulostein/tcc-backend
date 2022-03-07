@@ -1,5 +1,5 @@
 const { db } = require('../infra');
-db.entityName = 'User';
+
 class UserRepository {
     async findAll() {
         this.setEntityName();
