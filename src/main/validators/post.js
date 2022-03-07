@@ -11,7 +11,7 @@ module.exports = class PostValidator {
         });
     }
 
-    static Id() {
+    static id() {
         return celebrate({
             [Segments.PARAMS]: Joi.object().keys({
                 id: Joi.number(),
