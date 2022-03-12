@@ -4,25 +4,29 @@ const { readdirSync } = require('fs');
 const { resolve } = require('path');
 const { errors } = require('celebrate');
 const bodyParser = require('./middlewares/body-parser');
+const cors = require('./middlewares/cors');
 const contentType = require('./middlewares/content-type');
 const tokenVerifier = require('./middlewares/token-verifier');
 
 const initRouter = (app) => {
-    const router = Router();
-    app.use('/api', router);
-    return router;
+  const router = Router();
+  app.use('/api', router);
+  return router;
 };
 
 const initMiddlewares = (app) => {
-    app.use(bodyParser());
-    app.use(contentType);
-    app.use(tokenVerifier);
+  app.use(bodyParser());
+  app.use(cors());
+  app.use(contentType);
+  app.use(tokenVerifier);
 };
 
 const initRoutes = (router) => {
-    const pathToRequire = resolve(__dirname, 'routes');
-    const routesFiles = readdirSync(pathToRequire);
-    routesFiles.map((routeFile) => require(`${pathToRequire}/${routeFile}`)(router));
+  const pathToRequire = resolve(__dirname, 'routes');
+  const routesFiles = readdirSync(pathToRequire);
+  routesFiles.map((routeFile) =>
+    require(`${pathToRequire}/${routeFile}`)(router)
+  );
 };
 
 const app = express();
