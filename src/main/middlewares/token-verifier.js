@@ -26,12 +26,19 @@ module.exports = (req, res, next) => {
         validateToken(extractToken(headers));
         next();
     } catch (error) {
-        tokenErrors = ['jwt expired', 'authorization token not provided', 'jwt malformed', 'invalid signature'];
+        tokenErrors = [
+            'jwt expired',
+            'authorization token not provided',
+            'jwt malformed',
+            'invalid signature',
+        ];
 
         if (tokenErrors.includes(error.message)) {
-            res.send(unauthorized());
+            const { code, ...data } = unauthorized();
+            res.status(code).send(data);
         } else {
-            res.send(serverError());
+            const { code, ...data } = serverError();
+            res.status(code).send(data);
         }
     }
 };
