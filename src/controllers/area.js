@@ -1,5 +1,5 @@
 const repository = require('../repositories/area');
-const { success, created } = require('../helpers/http');
+const { success, created, deleted } = require('../helpers/http');
 
 class AreaController {
     async findAll() {
