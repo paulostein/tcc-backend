@@ -3,13 +3,16 @@ const { db } = require('../infra');
 class UserRepository {
     async findAll() {
         this.setEntityName();
-        const users = await db.findAll();
+        const users = await db.findAll({ relations: ['area'] });
         return users;
     }
 
     async findByCriteria(criteria) {
         this.setEntityName();
-        const user = await db.findByCriteria(criteria);
+        const user = await db.findByCriteria({
+            where: { ...criteria },
+            relations: ['area'],
+        });
         return user;
     }
 

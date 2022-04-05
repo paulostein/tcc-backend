@@ -3,7 +3,7 @@ const { db } = require('../infra');
 class PostRepository {
     async findAll() {
         this.setEntityName();
-        const posts = await db.findAll();
+        const posts = await db.findAll({ relations: ['area', 'user'] });
         return posts;
     }
 

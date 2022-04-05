@@ -31,9 +31,9 @@ module.exports = {
             return connection.getRepository(this.entityName);
         },
 
-        async findAll() {
+        async findAll(options = {}) {
             const repository = await this.getRepository();
-            return repository.find();
+            return repository.find(options);
         },
 
         async save(data) {
@@ -49,6 +49,6 @@ module.exports = {
         async deleteById(id) {
             const repository = await this.getRepository();
             await repository.delete(id);
-        }
+        },
     },
 };
