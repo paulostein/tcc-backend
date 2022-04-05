@@ -3,7 +3,6 @@ const Validators = require('../validators/post');
 
 module.exports = (router) => {
     router.get('/post', async (req, res) => {
-        console.log('asdasd');
         const { code, ...data } = await controller.findAll();
         res.status(code).send(data);
     });
