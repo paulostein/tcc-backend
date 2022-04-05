@@ -10,7 +10,7 @@ module.exports = class UserValidator {
                     .max(100)
                     .regex(/^[a-z0-9.]+@[a-z0-9]+.[a-z]+.([a-z]+)?$/i),
                 password: Joi.string().required().min(8),
-                areaId: Joi.number(),
+                area: Joi.object().required(),
             }),
         });
     }
