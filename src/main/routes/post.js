@@ -3,7 +3,7 @@ const Validators = require('../validators/post');
 
 module.exports = (router) => {
     router.get('/post', async (req, res) => {
-        const { code, ...data } = await controller.findAll();
+        const { code, ...data } = await controller.findAll(req.headers);
         res.status(code).send(data);
     });
 

@@ -1,10 +1,12 @@
 const repository = require('../repositories/post');
 const { success, created, deleted } = require('../helpers/http');
 const fs = require('fs');
+const jwt = require('jsonwebtoken');
 
 class PostController {
-    async findAll() {
-        const posts = await repository.findAll();
+    async findAll(headers) {
+        const areaId = this.getUserAreaId(headers);
+        const posts = await repository.findAll(areaId);
         return success('Found posts', posts);
     }
 
@@ -49,6 +51,16 @@ class PostController {
             }
         );
         return fileName;
+    }
+
+    extractToken(headers) {
+        const { authorization } = headers;
+        return authorization.replace('Bearer ', '');
+    }
+
+    getUserAreaId(headers) {
+        const { area } = jwt.decode(this.extractToken(headers));
+        return area.id;
     }
 }
 

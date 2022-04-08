@@ -1,9 +1,14 @@
 const { db } = require('../infra');
+const { In } = require('typeorm');
 
 class PostRepository {
-    async findAll() {
+    async findAll(areaId) {
         this.setEntityName();
-        const posts = await db.findAll({ relations: ['area', 'user'] });
+
+        const posts = await db.findAll({
+            where: { area: { id: In([areaId, 7]) } },
+            relations: ['area', 'user'],
+        });
         return posts;
     }
 
