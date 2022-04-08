@@ -1,5 +1,6 @@
 const repository = require('../repositories/post');
 const { success, created } = require('../helpers/http');
+const fs = require('fs');
 
 class PostController {
     async findAll() {
@@ -8,7 +9,12 @@ class PostController {
     }
 
     async save(post) {
-        const createdPost = await repository.save(post);
+        const serializedPost = this.serializePostBody(post.body);
+        if (post.files) {
+            const attachment = this.saveFile(post.files);
+            serializedPost.attachment = attachment;
+        }
+        const createdPost = await repository.save(serializedPost);
         return created('Post created successfully', createdPost);
     }
 
@@ -20,6 +26,30 @@ class PostController {
         }
         await repository.deleteById(id);
         return deleted();
+    }
+
+    serializePostBody(post) {
+        return {
+            area: JSON.parse(post.area),
+            user: JSON.parse(post.user),
+            text: JSON.parse(post.text),
+            attachment: '',
+        };
+    }
+
+    saveFile(file) {
+        const fileName = `${new Date().getTime()}_${file.attachment.name}`;
+
+        fs.writeFile(
+            `public/${fileName}`,
+            Buffer.from(file.attachment.data),
+            'binary',
+            function (err) {
+                if (err) throw err;
+                console.log('File saved.');
+            }
+        );
+        return fileName;
     }
 }
 

@@ -8,7 +8,7 @@ module.exports = (router) => {
     });
 
     router.post('/post', Validators.post(), async (req, res) => {
-        const { code, ...data } = await controller.save(req.body);
+        const { code, ...data } = await controller.save(req);
         res.status(code).send(data);
     });
 

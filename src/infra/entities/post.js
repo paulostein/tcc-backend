@@ -9,9 +9,6 @@ module.exports = new EntitySchema({
             type: 'int',
             generated: true,
         },
-        title: {
-            type: 'varchar',
-        },
         text: {
             type: 'text',
         },
