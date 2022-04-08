@@ -46,7 +46,6 @@ class PostController {
             'binary',
             function (err) {
                 if (err) throw err;
-                console.log('File saved.');
             }
         );
         return fileName;

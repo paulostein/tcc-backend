@@ -21,6 +21,7 @@ const initMiddlewares = (app) => {
     app.use(contentType);
     app.use(tokenVerifier);
     app.use(fileUpload());
+    app.use('/public', express.static('public'));
 };
 
 const initRoutes = (router) => {
