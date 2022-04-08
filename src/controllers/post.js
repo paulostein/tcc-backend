@@ -1,5 +1,5 @@
 const repository = require('../repositories/post');
-const { success, created } = require('../helpers/http');
+const { success, created, deleted } = require('../helpers/http');
 const fs = require('fs');
 
 class PostController {
