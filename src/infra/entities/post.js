@@ -22,12 +22,14 @@ module.exports = new EntitySchema({
             type: 'many-to-one',
             joinTable: true,
             cascade: true,
+            onDelete: 'CASCADE',
         },
         user: {
             target: 'User',
             type: 'many-to-one',
             joinTable: true,
             cascade: true,
+            onDelete: 'CASCADE',
         },
     },
 });

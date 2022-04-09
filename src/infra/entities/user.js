@@ -25,12 +25,14 @@ module.exports = new EntitySchema({
             type: 'one-to-many',
             joinTable: true,
             cascade: true,
+            onDelete: 'CASCADE',
         },
         area: {
             target: 'Area',
             type: 'many-to-one',
             joinTable: true,
             cascade: true,
+            onDelete: 'CASCADE',
         },
     },
 });
