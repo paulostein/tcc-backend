@@ -15,6 +15,10 @@ class PostController {
         if (post.files) {
             const attachment = this.saveFile(post.files);
             serializedPost.attachment = attachment;
+            serializedPost.attachmentType =
+                post.files.attachment.mimetype.includes('image')
+                    ? 'image'
+                    : 'video';
         }
         const createdPost = await repository.save(serializedPost);
         return created('Post created successfully', createdPost);
@@ -36,6 +40,7 @@ class PostController {
             user: JSON.parse(post.user),
             text: JSON.parse(post.text),
             attachment: '',
+            attachmentType: '',
         };
     }
 

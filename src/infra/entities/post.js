@@ -15,6 +15,9 @@ module.exports = new EntitySchema({
         attachment: {
             type: 'varchar',
         },
+        attachmentType: {
+            type: 'varchar',
+        },
     },
     relations: {
         area: {
