@@ -15,10 +15,7 @@ class PostController {
         if (post.files) {
             const attachment = this.saveFile(post.files);
             serializedPost.attachment = attachment;
-            serializedPost.attachmentType =
-                post.files.attachment.mimetype.includes('image')
-                    ? 'image'
-                    : 'video';
+            serializedPost.attachmentType = post.files.attachment.mimetype;
         }
         const createdPost = await repository.save(serializedPost);
         return created('Post created successfully', createdPost);
