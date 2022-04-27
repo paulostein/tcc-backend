@@ -19,7 +19,11 @@ const extractToken = (headers) => {
 module.exports = (req, res, next) => {
     try {
         const { headers, path } = req;
-        if (path.includes('login') || path.includes('public')) {
+        if (
+            path.includes('login') ||
+            path.includes('public') ||
+            path.includes('video')
+        ) {
             return next();
         }
         validateHeaders(headers);
