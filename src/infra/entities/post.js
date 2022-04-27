@@ -18,6 +18,11 @@ module.exports = new EntitySchema({
         attachmentType: {
             type: 'varchar',
         },
+        createAt: {
+            createDate: true,
+            type: 'timestamptz',
+            default: () => "now() AT TIME ZONE 'America/Sao_Paulo'",
+        },
     },
     relations: {
         area: {
