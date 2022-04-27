@@ -50,5 +50,10 @@ module.exports = {
             const repository = await this.getRepository();
             await repository.delete(id);
         },
+
+        async update(data) {
+            const repository = await this.getRepository();
+            return repository.update(data.id, data.body);
+        },
     },
 };

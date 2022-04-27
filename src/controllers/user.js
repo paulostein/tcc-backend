@@ -14,17 +14,15 @@ class UserController {
     }
 
     async save(user) {
-        const userFound = await repository.findByCriteria({ email: user.email });
+        const userFound = await repository.findByCriteria({
+            email: user.email,
+        });
 
         if (userFound) {
             return badRequest('User already exists');
         }
 
-        const hash = await bcrypt.hash(user.password, 10);
-        const encryptedUser = {
-            ...user,
-            password: hash,
-        };
+        const encryptedUser = await this.encryptPassword(user);
         const createdUser = await repository.save(encryptedUser);
         return created('User created successfully', createdUser);
     }
@@ -37,6 +35,25 @@ class UserController {
         }
         await repository.deleteById(id);
         return deleted();
+    }
+
+    async update({ id, body }) {
+        const userFound = await repository.findByCriteria(id);
+
+        if (!userFound) {
+            return badRequest('User not exists');
+        }
+        const encryptedUser = await this.encryptPassword(body);
+        const user = await repository.update({ id, body: encryptedUser });
+        return success('User updated', user);
+    }
+
+    async encryptPassword(user) {
+        const hash = await bcrypt.hash(user.password, 10);
+        return {
+            ...user,
+            password: hash,
+        };
     }
 }
 

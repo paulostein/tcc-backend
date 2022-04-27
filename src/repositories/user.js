@@ -26,6 +26,11 @@ class UserRepository {
         await db.deleteById(id);
     }
 
+    async update(user) {
+        this.setEntityName();
+        return db.update(user);
+    }
+
     setEntityName() {
         db.entityName = 'User';
     }
