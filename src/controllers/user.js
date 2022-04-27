@@ -49,6 +49,9 @@ class UserController {
     }
 
     async encryptPassword(user) {
+        if (!user.password) {
+            return user;
+        }
         const hash = await bcrypt.hash(user.password, 10);
         return {
             ...user,
