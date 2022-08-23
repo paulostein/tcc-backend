@@ -6,7 +6,7 @@ class PostRepository {
         this.setEntityName();
 
         const posts = await db.findAll({
-            where: { area: { id: In([areaId, 7]) } },
+            where: { area: { id: In([areaId, 1]) } },
             relations: ['area', 'user'],
         });
         return posts;
